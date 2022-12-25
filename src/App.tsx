@@ -34,7 +34,7 @@ const App = () => {
 						/>
 					</li>
 					<li>
-						<a href="/">
+						<a href="/sign">
 							Sign in
 						</a>
 					</li>

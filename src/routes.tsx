@@ -1,9 +1,7 @@
-import { useState } from "react"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import { ThemeProvider } from "styled-components"
 import App from "./App"
 import { AppThemeProvider } from "./contexts/Theme"
-import { dark, light } from "./themes"
+import Auth from "./pages/Auth"
 
 const AppRoutes = () => {
     return (
@@ -11,6 +9,7 @@ const AppRoutes = () => {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<App />} />
+                    <Route path="/sign" element={<Auth />} />
                 </Routes>
             </BrowserRouter>
         </AppThemeProvider>
