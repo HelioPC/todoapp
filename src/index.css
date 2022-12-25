@@ -3,7 +3,21 @@
 	padding: 0;
 	box-sizing: border-box;
 	user-select: none;
-	font-family: Segoe, 'Segoe UI', Arial, sans-serif;
+	font-family: 'Segoe', 'Segoe UI', Arial, 'sans-serif';
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+}
+
+a {
+	text-decoration: none;
+}
+
+button {
+	cursor: pointer;
+}
+
+li {
+	list-style: none;
 }
 
 @tailwind base;
