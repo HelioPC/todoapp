@@ -11,6 +11,7 @@ declare module 'styled-components' {
                 sideBarLabelBg: string;
                 textPrimary: string;
                 textSecundary: string;
+                textLink: string;
                 active: string;
             };
         };

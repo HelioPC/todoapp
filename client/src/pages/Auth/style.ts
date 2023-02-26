@@ -52,17 +52,14 @@ export const AuthFormInput = styled.input`
     }
 `
 
-export const AuthFormButton = styled.a`
+export const AuthFormButton = styled.button`
     min-width: 350px;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px;
     border-radius: 4px;
+    border: none;
     transition: all ease .5s;
     cursor: pointer;
-
-    &:hover {
-        scale: 1.05;
-    }
 `

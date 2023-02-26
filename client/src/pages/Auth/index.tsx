@@ -1,18 +1,41 @@
 import { FcGoogle } from "react-icons/fc"
 
-import api from "../../api/services"
 import { useAppTheme } from "../../contexts/Theme"
 import * as L from "./style"
 import logo from '../../assets/images/logo.png'
+import { useEffect, useState } from "react"
+import { fakeApiUsers, UserStorageName } from "../../assets/dummy"
+import { UserActions, useUser } from "../../contexts/User"
+import { useNavigate } from "react-router-dom"
 
 const Auth = () => {
+    const { dispatch, validUser } = useUser()
     const { theme } = useAppTheme()
+    const [email, setEmail] = useState('')
+    const [password, setPAssword] = useState('')
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if(validUser) navigate('/app')
+    }, [])
     
     const handleLogin = async () => {
-        const result = await api.signWithGoogle()
+        if(email === '' || password === '') {
+            return
+        }
 
-        if(result) console.log('User added')
-        else console.log('Fail')
+        else {
+            const authUser = fakeApiUsers.find((u) => u.email === email && u.password === password)
+
+            if(authUser) {
+                dispatch({
+                    type: UserActions.setUser,
+                    payload: authUser
+                })
+                localStorage.setItem(UserStorageName, JSON.stringify(authUser))
+                navigate('/app')
+            }
+        }
     }
 
     return (
@@ -29,44 +52,48 @@ const Auth = () => {
                                 <label htmlFor="" className="text-sm font-semibold">
                                     Email
                                 </label>
-                                <L.AuthFormInput type="email" name="" placeholder="E-mail" />
+                                <L.AuthFormInput
+                                    type="email"
+                                    name="email"
+                                    placeholder="E-mail"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
                             </div>
                             <div className="flex flex-col gap-3">
                                 <label htmlFor="" className="text-sm font-semibold">
                                     Password
                                 </label>
-                                <L.AuthFormInput type="password" name="" placeholder="Password" />
+                                <L.AuthFormInput
+                                    type="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    value={password}
+                                    onChange={(e) => setPAssword(e.target.value)}
+                                />
                             </div>
                             <div className="flex justify-between">
                                 <div className="flex items-center gap-2">
                                     <input type="checkbox" name="" />
                                     <label htmlFor="" className="text-sm">Remember for 30 days</label>
                                 </div>
-                                <a href="" className="text-sm">Forgot password</a>
+                                <a href="/" className="text-sm" style={{ color: `${theme.colors.textLink}` }}>Forgot password</a>
                             </div>
                             <div className="flex flex-col justify-center items-center gap-3">
                                 <L.AuthFormButton
-                                    href=""
                                     style={{
                                         backgroundColor: `${theme.colors.primary}`,
                                         color: 'white'
                                     }}
+                                    onClick={async () => await handleLogin()}
                                 >
-                                    Sign in
-                                </L.AuthFormButton>
-                                <L.AuthFormButton
-                                    style={{
-                                        border: '1px solid #999999',
-                                        color: `${theme.colors.textPrimary}`
-                                    }}
-                                    onClick={() => handleLogin()}
-                                >
-                                    <FcGoogle size={20} className="mr-3" />
-                                    Sign in with Google
+                                    <span>Sign in</span>
                                 </L.AuthFormButton>
                             </div>
                             <div className="flex justify-center items-center">
-                                <p className="text-sm">Don't have an account <a href="/">Sign up</a></p>
+                                <p className="text-sm">
+                                    Don't have an account <a href="/" style={{ color: `${theme.colors.textLink}` }}>Sign up</a>
+                                </p>
                             </div>
                         </div>
                     </L.AuthForm>

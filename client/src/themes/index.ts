@@ -8,6 +8,7 @@ export const light = {
         sideBarLabelBg: '#EFF6FC',
         textPrimary: '#292827',
         textSecundary: '#605E5C',
+        textLink: '#1E40AF',
         active: '#78BAFD',
     }
 }
@@ -22,6 +23,7 @@ export const dark = {
         sideBarLabelBg: '#3B3A39',
         textPrimary: '#FFFFFF',
         textSecundary: '#A19F9D',
+        textLink: '#3B82F6',
         active: '#78BAFD',
     }
 }
